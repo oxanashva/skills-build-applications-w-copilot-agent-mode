@@ -42,6 +42,12 @@ nav ul li a:hover {
   text-decoration: underline;
 }
 
+.navbar-logo {
+  height: 40px;
+  width: auto;
+  margin-right: 10px;
+}
+
 /* Component styles */
 h1 {
   color: #00008b; /* Dark blue header name */
@@ -141,4 +147,9 @@ button:hover {
 /* Favicon styles */
 .favicon {
   display: none;
+}
+
+/* Home content styles */
+.home-content {
+  margin: 20px;
 }
