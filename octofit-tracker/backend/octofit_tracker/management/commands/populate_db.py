@@ -2,27 +2,34 @@ from django.core.management.base import BaseCommand
 from octofit_tracker.models import User, Team, Activity, Leaderboard, Workout
 from bson import ObjectId
 from datetime import timedelta
+from django.db import connection
 
 class Command(BaseCommand):
     help = 'Populate the database with test data for users, teams, activities, leaderboard, and workouts'
 
     def handle(self, *args, **kwargs):
-        # Clear existing data
-        User.objects.all().delete()
-        Team.objects.all().delete()
-        Activity.objects.all().delete()
-        Leaderboard.objects.all().delete()
-        Workout.objects.all().delete()
+        # Clear existing data using the database API to avoid issues with unhashable model instances
+        with connection.cursor() as cursor:
+            cursor.execute("DELETE FROM octofit_tracker_user")
+            cursor.execute("DELETE FROM octofit_tracker_team")
+            cursor.execute("DELETE FROM octofit_tracker_activity")
+            cursor.execute("DELETE FROM octofit_tracker_leaderboard")
+            cursor.execute("DELETE FROM octofit_tracker_workout")
 
+        # Ensure that the `_id` field is not explicitly set to `null` or left uninitialized
         # Create users
-        users = [
-            User(_id=ObjectId(), username='thundergod', email='thundergod@mhigh.edu', password='password123'),
-            User(_id=ObjectId(), username='metalgeek', email='metalgeek@mhigh.edu', password='password123'),
-            User(_id=ObjectId(), username='zerocool', email='zerocool@mhigh.edu', password='password123'),
-            User(_id=ObjectId(), username='crashoverride', email='crashoverride@mhigh.edu', password='password123'),
-            User(_id=ObjectId(), username='sleeptoken', email='sleeptoken@mhigh.edu', password='password123'),
+        users = []
+        user_data = [
+            {'username': 'thundergod', 'email': 'thundergod@mhigh.edu', 'password': 'password123'},
+            {'username': 'metalgeek', 'email': 'metalgeek@mhigh.edu', 'password': 'password123'},
+            {'username': 'zerocool', 'email': 'zerocool@mhigh.edu', 'password': 'password123'},
+            {'username': 'crashoverride', 'email': 'crashoverride@mhigh.edu', 'password': 'password123'},
+            {'username': 'sleeptoken', 'email': 'sleeptoken@mhigh.edu', 'password': 'password123'},
         ]
-        User.objects.bulk_create(users)
+        for data in user_data:
+            user = User(**data)
+            user.save()
+            users.append(user)
 
         # Create teams
         team1 = Team(_id=ObjectId(), name='Blue Team')

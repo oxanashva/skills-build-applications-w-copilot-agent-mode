@@ -1,8 +1,10 @@
 from djongo import models
+from djongo.models import ObjectIdField
+from bson import ObjectId
 
 class User(models.Model):
-    _id = models.ObjectIdField()
-    username = models.CharField(max_length=100)
+    _id = ObjectIdField(primary_key=True, default=ObjectId, editable=False)
+    username = models.CharField(max_length=100, unique=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=100)
 
