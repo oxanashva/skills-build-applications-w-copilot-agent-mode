@@ -6,13 +6,15 @@ import Teams from './components/Teams';
 import Users from './components/Users';
 import Workouts from './components/Workouts';
 import './App.css';
+import logo from './assets/octofitapp-small.png';
 
 function App() {
   return (
     <Router>
-      <div className="container">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <div>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light w-100">
           <div className="container-fluid">
+            <img src={logo} alt="OctoFit Logo" className="navbar-logo" />
             <Link className="navbar-brand" to="/">OctoFit Tracker</Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
@@ -45,7 +47,7 @@ function App() {
             <Route path="/teams" element={<Teams />} />
             <Route path="/users" element={<Users />} />
             <Route path="/workouts" element={<Workouts />} />
-            <Route path="/" element={<h1>Welcome to OctoFit Tracker</h1>} />
+            <Route path="/" element={<div className="home-content"><h1>Welcome to OctoFit Tracker</h1></div>} />
           </Routes>
         </div>
       </div>
