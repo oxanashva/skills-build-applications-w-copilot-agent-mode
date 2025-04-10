@@ -4,7 +4,7 @@ function Teams() {
   const [teams, setTeams] = useState([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/teams/')
+    fetch(`${process.env.REACT_APP_API_URL}/api/teams/`)
       .then(response => response.json())
       .then(data => setTeams(data))
       .catch(error => console.error('Error fetching teams:', error));

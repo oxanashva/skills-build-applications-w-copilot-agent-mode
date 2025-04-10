@@ -4,7 +4,7 @@ function Workouts() {
   const [workouts, setWorkouts] = useState([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/workouts/')
+    fetch(`${process.env.REACT_APP_API_URL}/api/workouts/`)
       .then(response => response.json())
       .then(data => setWorkouts(data))
       .catch(error => console.error('Error fetching workouts:', error));
