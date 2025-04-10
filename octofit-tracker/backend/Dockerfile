@@ -10,8 +10,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the backend code
 COPY backend /app
 
-# Expose the port Django will run on
+# Expose the port Gunicorn will run on
 EXPOSE 8000
 
-# Run the Django server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Run Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "octofit_tracker.wsgi:application"]
