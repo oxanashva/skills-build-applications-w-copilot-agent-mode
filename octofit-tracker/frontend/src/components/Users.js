@@ -4,7 +4,7 @@ function Users() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch('https://urban-capybara-q6x54wxrj7xh9646-8000.app.github.dev/api/users/')
+    fetch('http://127.0.0.1:8000/api/users/')
       .then(response => response.json())
       .then(data => setUsers(data))
       .catch(error => console.error('Error fetching users:', error));
