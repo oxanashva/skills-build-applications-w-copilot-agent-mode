@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,13 +20,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment-checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-#t@_mz%menl0e7)xeckanc!b#o@$gmzl=#=ax89@xe58!)idhh"
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+if not SECRET_KEY:
+    raise ValueError("The DJANGO_SECRET_KEY environment variable is not set!")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['urban-capybara-q6x54wxrj7xh9646-8000.app.github.dev', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -85,9 +87,11 @@ WSGI_APPLICATION = "octofit_tracker.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "djongo",
-        "NAME": "octofit_db",
-        "HOST": "localhost",
-        "PORT": 27017,
+        "NAME": os.getenv("MONGO_DB_NAME", "octofit_db"),
+        "HOST": os.getenv("MONGO_DB_HOST", "localhost"),
+        "PORT": int(os.getenv("MONGO_DB_PORT", 27017)),
+        "USER": os.getenv("MONGO_DB_USER", ""),
+        "PASSWORD": os.getenv("MONGO_DB_PASSWORD", ""),
     }
 }
 

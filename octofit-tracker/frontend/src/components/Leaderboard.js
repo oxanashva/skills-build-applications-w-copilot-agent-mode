@@ -4,7 +4,7 @@ function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
 
   useEffect(() => {
-    fetch('https://urban-capybara-q6x54wxrj7xh9646-8000.app.github.dev/api/leaderboard/')
+    fetch(`${process.env.REACT_APP_API_URL}/api/leaderboard/`)
       .then(response => response.json())
       .then(data => setLeaderboard(data))
       .catch(error => console.error('Error fetching leaderboard:', error));

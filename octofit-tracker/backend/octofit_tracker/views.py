@@ -1,3 +1,4 @@
+import os
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -6,7 +7,7 @@ from .models import User, Team, Activity, Leaderboard, Workout
 
 @api_view(['GET'])
 def api_root(request, format=None):
-    base_url = 'https://urban-capybara-q6x54wxrj7xh9646-8000.app.github.dev/'
+    base_url = os.getenv('BASE_API_URL', 'http://127.0.0.1:8000/')
     return Response({
         'users': base_url + 'api/users/',
         'teams': base_url + 'api/teams/',
