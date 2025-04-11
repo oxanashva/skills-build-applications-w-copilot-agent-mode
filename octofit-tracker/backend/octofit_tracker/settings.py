@@ -27,7 +27,7 @@ if not SECRET_KEY:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://skills-build-applications-w-copilot.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['skills-build-applications-w-copilot.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
