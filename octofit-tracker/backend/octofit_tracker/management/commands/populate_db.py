@@ -8,15 +8,13 @@ class Command(BaseCommand):
     help = 'Populate the database with test data for users, teams, activities, leaderboard, and workouts'
 
     def handle(self, *args, **kwargs):
-        # Clear existing data using the database API to avoid issues with unhashable model instances
-        with connection.cursor() as cursor:
-            cursor.execute("DELETE FROM octofit_tracker_user")
-            cursor.execute("DELETE FROM octofit_tracker_team")
-            cursor.execute("DELETE FROM octofit_tracker_activity")
-            cursor.execute("DELETE FROM octofit_tracker_leaderboard")
-            cursor.execute("DELETE FROM octofit_tracker_workout")
+        # Clear existing data using Django ORM
+        User.objects.all().delete()
+        Team.objects.all().delete()
+        Activity.objects.all().delete()
+        Leaderboard.objects.all().delete()
+        Workout.objects.all().delete()
 
-        # Ensure that the `_id` field is not explicitly set to `null` or left uninitialized
         # Create users
         users = []
         user_data = [
