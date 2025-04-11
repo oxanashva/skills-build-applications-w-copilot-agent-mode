@@ -4,11 +4,11 @@ FROM node:16
 WORKDIR /app
 
 # Install dependencies
-COPY frontend/package.json frontend/package-lock.json ./
+COPY package.json package-lock.json ./
 RUN npm install
 
 # Copy the frontend code
-COPY frontend /app
+COPY . /app
 
 # Expose the port React will run on
 EXPOSE 3000
