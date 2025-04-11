@@ -88,10 +88,9 @@ DATABASES = {
     "default": {
         "ENGINE": "djongo",
         "NAME": os.getenv("MONGO_DB_NAME", "octofit_db"),
-        "HOST": os.getenv("MONGO_DB_HOST", "localhost"),
-        "PORT": int(os.getenv("MONGO_DB_PORT", 27017)),
-        "USER": os.getenv("MONGO_DB_USER", ""),
-        "PASSWORD": os.getenv("MONGO_DB_PASSWORD", ""),
+        "CLIENT": {
+            "host": os.getenv("MONGO_DB_URI"),
+        }
     }
 }
 
