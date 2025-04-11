@@ -8,7 +8,7 @@ COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the backend code
-COPY backend /app
+COPY . /app
 
 # Expose the port Gunicorn will run on
 EXPOSE 8000
