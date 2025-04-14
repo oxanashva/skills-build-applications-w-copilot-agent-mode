@@ -18,4 +18,4 @@ EXPOSE 8000
 # Gunicorn is configured to bind to all network interfaces on port 8000.
 # A timeout of 120 seconds is set to accommodate the Render free plan's limitations.
 # The WSGI application entry point is defined as 'octofit_tracker.wsgi:application'.
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--timeout", "120", "octofit_tracker.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--timeout", "60", "octofit_tracker.wsgi:application"]
