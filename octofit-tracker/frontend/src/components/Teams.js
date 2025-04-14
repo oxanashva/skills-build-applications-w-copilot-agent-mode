@@ -2,13 +2,43 @@ import React, { useEffect, useState } from 'react';
 
 function Teams() {
   const [teams, setTeams] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/api/teams/`)
-      .then(response => response.json())
-      .then(data => setTeams(data))
-      .catch(error => console.error('Error fetching teams:', error));
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 120000); // 120-second timeout
+
+    fetch(`${process.env.REACT_APP_API_URL}/api/teams/`, { signal: controller.signal })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        setTeams(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        if (error.name === 'AbortError') {
+          setError('Request timed out. Please try again.');
+        } else {
+          setError('Error fetching teams. Please try again later.');
+        }
+        setLoading(false);
+      });
+
+    return () => clearTimeout(timeoutId); // Cleanup timeout on component unmount
   }, []);
+
+  if (loading) {
+    return <div className="text-center mt-4"><div className="spinner-border" role="status"><span className="visually-hidden">Loading...</span></div></div>;
+  }
+
+  if (error) {
+    return <div className="text-center mt-4 text-danger">{error}</div>;
+  }
 
   return (
     <div className="container mt-4">
