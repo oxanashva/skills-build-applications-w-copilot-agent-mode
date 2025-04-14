@@ -7,7 +7,7 @@ function Leaderboard() {
 
   useEffect(() => {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 120000); // 120-second timeout
+    const timeoutId = setTimeout(() => controller.abort(), 60000); // 60-second timeout
 
     fetch(`${process.env.REACT_APP_API_URL}/api/leaderboard/`, { signal: controller.signal })
       .then(response => {
