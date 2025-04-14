@@ -12,6 +12,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Render Deploy Hook
+      - name: Deploy Backend App
         run: |
-          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+          curl -X POST ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK_URL }}
+      
+      - name: Deploy Frontend App
+        run: |
+          curl -X POST ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK_URL }}
