@@ -14,4 +14,4 @@ COPY . /app
 EXPOSE 8000
 
 # Run Gunicorn using JSON array syntax
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--timeout", "60", "octofit_tracker.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:10000", "--timeout", "60", "octofit_tracker.wsgi:application"]
