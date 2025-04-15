@@ -6,10 +6,7 @@ function Users() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 60000); // 60-second timeout
-
-    fetch(`${process.env.REACT_APP_API_URL}/api/users/`, { signal: controller.signal })
+    fetch(`${process.env.REACT_APP_API_URL}/api/users/`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -21,15 +18,9 @@ function Users() {
         setLoading(false);
       })
       .catch(error => {
-        if (error.name === 'AbortError') {
-          setError('Request timed out. Please try again.');
-        } else {
-          setError('Error fetching users. Please try again later.');
-        }
+        setError('Error fetching users. Please try again later.');
         setLoading(false);
       });
-
-    return () => clearTimeout(timeoutId); // Cleanup timeout on component unmount
   }, []);
 
   if (loading) {
