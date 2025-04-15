@@ -25,7 +25,7 @@ if not SECRET_KEY:
     raise ValueError("The DJANGO_SECRET_KEY environment variable is not set!")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv("DEBUG", "False").lower() in ("true", "1", "yes")
 
 ALLOWED_HOSTS = ['skills-build-applications-w-copilot.onrender.com', 'localhost', '127.0.0.1']
 
